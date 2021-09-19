@@ -1,5 +1,6 @@
 .popup__body {
     position: relative;
+    width: 100%;
     max-width: 430px;
     background-color: #FFFF;
     border-radius: 10px;
@@ -10,7 +11,7 @@
     z-index: 11;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .popup__body {
         padding: 25px 22px;
     }
