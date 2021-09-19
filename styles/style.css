@@ -27,3 +27,5 @@
 @import url('../blocks/card/__section/card__section.css');
 @import url('../blocks/card/__heart-input/card__heart-input.css');
 @import url('../blocks/card/__heart-label/card__heart-label.css');
+
+@import url('../blocks/footer/__text/footer__text.css');
