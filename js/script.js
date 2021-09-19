@@ -13,13 +13,13 @@ const editForm = document.body.querySelector('.popup__body');
 
 function popupCloseHandler(event) {
     event.preventDefault();
-    
+
     popup.classList.add('popup_hidden');
 }
 
 function profileEditHandler() {
-    popupName.setAttribute('value', profileName.textContent);
-    popupProfession.setAttribute('value', profileProfession.textContent);
+    popupName.value = profileName.textContent;
+    popupProfession.value = profileProfession.textContent;
 
     popup.classList.remove('popup_hidden');
 }
