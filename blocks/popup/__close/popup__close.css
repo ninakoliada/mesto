@@ -9,7 +9,7 @@
     border: none;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .popup__close {
         top: -48px;
         right: 0;
