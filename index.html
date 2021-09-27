@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=3, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/index.css">
     <title>Document</title>
 </head>
@@ -17,15 +17,15 @@
                 <img class="profile__avatar" src="./images/avatar.jpg" alt="Жак-Ив Кусто">
                 <div class="profile__info">
                     <div class="profile__content">
-                        <h2 class="profile__name">Жак-Ив Кусто</h2>
-                        <button class="button button_size_s profile__edit-button">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <button type="button" class="button button_size_s profile__edit-button">
                             <img src="./images/edit_button.svg" alt="Кнопка редактировать профиль">
                         </button>
                     </div>
                     <p class="profile__profession">Исследователь океана</p>
                 </div>
             </div>
-            <button class="button button_size_l profile__add-button">
+            <button type="button" class="button button_size_l profile__add-button">
                 <img src="./images/add_button.svg" alt="Кнопка добавить">
             </button>
         </section>
@@ -34,48 +34,42 @@
                 <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
                 <div class="card__section">
                     <h4 class="card__text">Карачаевск</h4>
-                    <input class="card__heart-input" id="karachaevsk" type="checkbox">
-                    <label class="card__heart-label" for="karachaevsk"></label>  
+                    <button class="card__heart-button" id="karachaevsk"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
                 <div class="card__section">
                     <h4 class="card__text">Гора Эльбрус</h4>
-                    <input class="card__heart-input" id="elbrus" type="checkbox">
-                    <label class="card__heart-label" for="elbrus"></label>  
+                    <button class="card__heart-button" id="elbrus"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/dombai.jpg" alt="Домбай">
                 <div class="card__section">
                     <h4 class="card__text">Домбай</h4>
-                    <input class="card__heart-input" id="dombai" type="checkbox">
-                    <label class="card__heart-label" for="dombai"></label>  
+                    <button class="card__heart-button" id="dombai"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/elbrus.jpg" alt="Эльбрус">
                 <div class="card__section">
                     <h4 class="card__text">Гора Эльбрус</h4>
-                    <input class="card__heart-input" id="elbrus_1" type="checkbox">
-                    <label class="card__heart-label" for="elbrus_1"></label>  
+                    <button class="card__heart-button" id="elbrus_1"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/dombai.jpg" alt="Домбай">
                 <div class="card__section">
                     <h4 class="card__text">Домбай</h4>
-                    <input class="card__heart-input" id="dombai_1" type="checkbox">
-                    <label class="card__heart-label" for="dombai_1"></label>  
+                    <button class="card__heart-button" id="dombai_1"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаево-Черкесия">
                 <div class="card__section">
                     <h4 class="card__text">Карачаево-Черкесия</h4>
-                    <input class="card__heart-input" id="karachaevsk_1" type="checkbox">
-                    <label class="card__heart-label" for="karachaevsk_1"></label>  
+                    <button class="card__heart-button" id="karachaevsk_1"></button>
                 </div>
             </div>
         </section>
@@ -83,15 +77,17 @@
     <footer class="footer">
         <p class="footer__text">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup popup_hidden">
+    <div class="popup popup_visibility_hidden">
         <div class="popup__background"></div>
-        <form class="popup__body">
+        <div class="popup__body">
             <h3 class="popup__text">Редактировать профиль</h3>
-            <input class="popup__input popup__name" type="text" required>
-            <input class="popup__input popup__profession" type="text" required>
-            <button class="button button_size_l popup__button" type="submit">Сохранить</button>
-            <button class="button popup__close"></button>
-        </form>
+            <form class="popup__form" name="edit-profile">
+                <input name="user-name" class="popup__input popup__input_type_name" type="text" placeholder="ФИО" required>
+                <input name="user-profession" class="popup__input popup__input_type_profession" type="text" placeholder="Род занятий" required>
+                <button class="button button_size_l popup__button" type="submit">Сохранить</button>
+            </form>
+            <button type="button" class="button popup__close"></button>
+        </div>
     </div>
     <script src="./js/script.js"></script>
 </body>
