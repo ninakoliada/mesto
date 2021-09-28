@@ -9,7 +9,7 @@ const editButton = document.body.querySelector('.profile__edit-button');
 const profileName = document.body.querySelector('.profile__name');
 const profileProfession = document.body.querySelector('.profile__profession');
 
-const editForm = document.body.querySelector('.popup__body');
+const editForm = document.body.querySelector('.popup__form');
 
 function popupCloseHandler(event) {
     event.preventDefault();

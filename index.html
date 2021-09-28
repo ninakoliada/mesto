@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/index.css">
-    <title>Document</title>
+    <title>Mesto</title>
 </head>
 <body class="page">
     <header class="header">
@@ -13,7 +13,6 @@
     </header>
     <main>
         <section class="profile">
-            <div class="profile__item">
                 <img class="profile__avatar" src="./images/avatar.jpg" alt="Жак-Ив Кусто">
                 <div class="profile__info">
                     <div class="profile__content">
@@ -24,9 +23,8 @@
                     </div>
                     <p class="profile__profession">Исследователь океана</p>
                 </div>
-            </div>
             <button type="button" class="button button_size_l profile__add-button">
-                <img src="./images/add_button.svg" alt="Кнопка добавить">
+                <img class="profile__add-image" src="./images/add_button.svg" alt="Кнопка добавить">
             </button>
         </section>
         <section class="gallery">
@@ -34,42 +32,42 @@
                 <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
                 <div class="card__section">
                     <h4 class="card__text">Карачаевск</h4>
-                    <button class="card__heart-button" id="karachaevsk"></button>  
+                    <button type="button" class="card__heart-button" id="karachaevsk"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
                 <div class="card__section">
                     <h4 class="card__text">Гора Эльбрус</h4>
-                    <button class="card__heart-button" id="elbrus"></button>  
+                    <button type="button" class="card__heart-button" id="elbrus"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/dombai.jpg" alt="Домбай">
                 <div class="card__section">
                     <h4 class="card__text">Домбай</h4>
-                    <button class="card__heart-button" id="dombai"></button>  
+                    <button type="button" class="card__heart-button" id="dombai"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/elbrus.jpg" alt="Эльбрус">
                 <div class="card__section">
                     <h4 class="card__text">Гора Эльбрус</h4>
-                    <button class="card__heart-button" id="elbrus_1"></button>  
+                    <button type="button" class="card__heart-button" id="elbrus_1"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/dombai.jpg" alt="Домбай">
                 <div class="card__section">
                     <h4 class="card__text">Домбай</h4>
-                    <button class="card__heart-button" id="dombai_1"></button>  
+                    <button type="button" class="card__heart-button" id="dombai_1"></button>  
                 </div>
             </div>
             <div class="gallery__item card">
                 <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаево-Черкесия">
                 <div class="card__section">
                     <h4 class="card__text">Карачаево-Черкесия</h4>
-                    <button class="card__heart-button" id="karachaevsk_1"></button>
+                    <button type="button" class="card__heart-button" id="karachaevsk_1"></button>
                 </div>
             </div>
         </section>
@@ -84,7 +82,7 @@
             <form class="popup__form" name="edit-profile">
                 <input name="user-name" class="popup__input popup__input_type_name" type="text" placeholder="ФИО" required>
                 <input name="user-profession" class="popup__input popup__input_type_profession" type="text" placeholder="Род занятий" required>
-                <button class="button button_size_l popup__button" type="submit">Сохранить</button>
+                <button type="submit" class="button button_size_l popup__button">Сохранить</button>
             </form>
             <button type="button" class="button popup__close"></button>
         </div>
