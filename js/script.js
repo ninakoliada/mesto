@@ -33,7 +33,9 @@ const imagePopupDescription = imagePopup.querySelector('.popup__description');
 const profilePopup = document.body.querySelector('.page__profile-popup');
 const placePopup = document.body.querySelector('.page__place-popup');
 const profilePopupClose = profilePopup.querySelector('.popup__close');
+const profilePopupOverlay = profilePopup.querySelector('.popup__background');
 const placePopupClose = placePopup.querySelector('.popup__close');
+const placePopupOverlay = placePopup.querySelector('.popup__background');
 const popupName = profilePopup.querySelector('.popup__input_type_name');
 const popupProfession = profilePopup.querySelector('.popup__input_type_profession');
 const popupPlaceName = placePopup.querySelector('.popup__input_type_name');
@@ -50,6 +52,8 @@ const editForm = profilePopup.querySelector('.popup__form');
 const addForm = placePopup.querySelector('.popup__form');
 
 const gallery = document.querySelector('.gallery');
+
+
 
 function createCard(link, name) {
   const imageTemplate = document.querySelector('#card').content;
@@ -148,11 +152,14 @@ function imagePopupCloseHandler(event) {
 }
 
 profilePopupClose.addEventListener('click', profilePopupCloseHandler);
+profilePopupOverlay.addEventListener('click', profilePopupCloseHandler);
 editButton.addEventListener('click', profileEditHandler);
 editForm.addEventListener('submit', profileFormSubmitHandler);
 
 addButton.addEventListener('click', placeAddHandler)
 placePopupClose.addEventListener('click', placePopupCloseHandler);
+placePopupOverlay.addEventListener('click', placePopupCloseHandler);
 addForm.addEventListener('submit', placeFormSubmitHandler);
 
 imagePopupClose.addEventListener('click', imagePopupCloseHandler);
+
