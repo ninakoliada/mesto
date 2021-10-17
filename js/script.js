@@ -33,12 +33,13 @@ const imagePopupDescription = imagePopup.querySelector('.popup__description');
 const profilePopup = document.body.querySelector('.page__profile-popup');
 const placePopup = document.body.querySelector('.page__place-popup');
 const profilePopupClose = profilePopup.querySelector('.popup__close');
+const profilePopupOverlay = profilePopup.querySelector('.popup__background');
 const placePopupClose = placePopup.querySelector('.popup__close');
+const placePopupOverlay = placePopup.querySelector('.popup__background');
 const popupName = profilePopup.querySelector('.popup__input_type_name');
 const popupProfession = profilePopup.querySelector('.popup__input_type_profession');
 const popupPlaceName = placePopup.querySelector('.popup__input_type_name');
 const popupPlaceLink = placePopup.querySelector('.popup__input_type_link');
-const popupButton = document.body.querySelector('.popup__button');
 
 const editButton = document.body.querySelector('.profile__edit-button');
 const addButton = document.body.querySelector('.profile__add-button');
@@ -93,12 +94,24 @@ initialCards.forEach(function(item){
   addImage(item.link, item.name)
 });
 
+function escapeKeyDownHandler(event) {
+  const popup = document.body.querySelector('.popup_visibility_visible');
+
+  if (event.key === 'Escape') {
+    closePopup(popup);
+  }
+}
+
 function closePopup(popup) {
   popup.classList.remove('popup_visibility_visible');
+
+  document.removeEventListener('keydown', escapeKeyDownHandler);
 }
 
 function openPopup(popup) {
   popup.classList.add('popup_visibility_visible');
+
+  document.addEventListener('keydown', escapeKeyDownHandler);
 }
 
 function profilePopupCloseHandler(event) {
@@ -109,7 +122,11 @@ function profilePopupCloseHandler(event) {
 
 function profileEditHandler() {
   popupName.value = profileName.textContent;
+  popupName.dispatchEvent(new Event('input'));
+
   popupProfession.value = profileProfession.textContent;
+  popupProfession.dispatchEvent(new Event('input'));
+
   openPopup(profilePopup);
 }
 
@@ -148,11 +165,13 @@ function imagePopupCloseHandler(event) {
 }
 
 profilePopupClose.addEventListener('click', profilePopupCloseHandler);
+profilePopupOverlay.addEventListener('click', profilePopupCloseHandler);
 editButton.addEventListener('click', profileEditHandler);
 editForm.addEventListener('submit', profileFormSubmitHandler);
 
 addButton.addEventListener('click', placeAddHandler)
 placePopupClose.addEventListener('click', placePopupCloseHandler);
+placePopupOverlay.addEventListener('click', placePopupCloseHandler);
 addForm.addEventListener('submit', placeFormSubmitHandler);
 
 imagePopupClose.addEventListener('click', imagePopupCloseHandler);
