@@ -40,7 +40,6 @@ const popupName = profilePopup.querySelector('.popup__input_type_name');
 const popupProfession = profilePopup.querySelector('.popup__input_type_profession');
 const popupPlaceName = placePopup.querySelector('.popup__input_type_name');
 const popupPlaceLink = placePopup.querySelector('.popup__input_type_link');
-const popupButton = document.body.querySelector('.popup__button');
 
 const editButton = document.body.querySelector('.profile__edit-button');
 const addButton = document.body.querySelector('.profile__add-button');
@@ -52,8 +51,6 @@ const editForm = profilePopup.querySelector('.popup__form');
 const addForm = placePopup.querySelector('.popup__form');
 
 const gallery = document.querySelector('.gallery');
-
-
 
 function createCard(link, name) {
   const imageTemplate = document.querySelector('#card').content;
@@ -125,7 +122,11 @@ function profilePopupCloseHandler(event) {
 
 function profileEditHandler() {
   popupName.value = profileName.textContent;
+  popupName.dispatchEvent(new Event('input'));
+
   popupProfession.value = profileProfession.textContent;
+  popupProfession.dispatchEvent(new Event('input'));
+
   openPopup(profilePopup);
 }
 
@@ -174,4 +175,3 @@ placePopupOverlay.addEventListener('click', placePopupCloseHandler);
 addForm.addEventListener('submit', placeFormSubmitHandler);
 
 imagePopupClose.addEventListener('click', imagePopupCloseHandler);
-
