@@ -3,5 +3,5 @@
     opacity: 0.2;
     background-color: #fff;
     color: #000;
-    cursor: default;
+    pointer-events: none;
 }

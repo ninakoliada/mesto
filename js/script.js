@@ -28,6 +28,7 @@ const initialCards = [
 const imagePopup = document.body.querySelector('.page__image-popup');
 const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imagePopupClose = imagePopup.querySelector('.popup__close');
+const imagePopupOverlay = imagePopup.querySelector('.popup__background');
 const imagePopupDescription = imagePopup.querySelector('.popup__description');
 
 const profilePopup = document.body.querySelector('.page__profile-popup');
@@ -49,7 +50,7 @@ const profileProfession = document.body.querySelector('.profile__profession');
 
 const editForm = profilePopup.querySelector('.popup__form');
 const addForm = placePopup.querySelector('.popup__form');
-
+const addFormButton = placePopup.querySelector('.popup__button');
 const gallery = document.querySelector('.gallery');
 
 function createCard(link, name) {
@@ -68,7 +69,7 @@ function createCard(link, name) {
     likeButton.classList.toggle('card__heart-button_active');
   });
 
-  const deleteButton =  imageElement.querySelector('.card__delete-button');
+  const deleteButton = imageElement.querySelector('.card__delete-button');
 
   deleteButton.addEventListener('click', function() {
     imageElement.remove()
@@ -115,8 +116,6 @@ function openPopup(popup) {
 }
 
 function profilePopupCloseHandler(event) {
-  event.preventDefault();
-
   closePopup(profilePopup);
 }
 
@@ -140,14 +139,13 @@ function profileFormSubmitHandler(event) {
 }
 
 function placeAddHandler() {
-  popupPlaceName.value = '';
-  popupPlaceLink.value = '';
+  addForm.reset();
+  addFormButton.classList.add('popup__button_disabled');
+
   openPopup(placePopup);
 }
 
 function placePopupCloseHandler(event) {
-  event.preventDefault();
-
   closePopup(placePopup);
 }
 
@@ -159,8 +157,6 @@ function placeFormSubmitHandler(event) {
 }
 
 function imagePopupCloseHandler(event) {
-  event.preventDefault();
-
   closePopup(imagePopup);
 }
 
@@ -175,3 +171,4 @@ placePopupOverlay.addEventListener('click', placePopupCloseHandler);
 addForm.addEventListener('submit', placeFormSubmitHandler);
 
 imagePopupClose.addEventListener('click', imagePopupCloseHandler);
+imagePopupOverlay.addEventListener('click', imagePopupCloseHandler);
