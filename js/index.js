@@ -1,5 +1,6 @@
 import { Card } from './Card.js'
 import { openPopup, closePopup } from './popup.js';
+import { FormValidator } from './FormValidator.js';
 
 const initialCards = [
   {
@@ -125,3 +126,18 @@ addForm.addEventListener('submit', placeFormSubmitHandler);
 
 imagePopupClose.addEventListener('click', imagePopupCloseHandler);
 imagePopupOverlay.addEventListener('click', imagePopupCloseHandler);
+
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+}
+
+const editFormValidator = new FormValidator(settings, editForm);
+const addFormValidator = new FormValidator(settings, addForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
