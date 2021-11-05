@@ -55,6 +55,21 @@ const addForm = placePopup.querySelector('.popup__form');
 const addFormButton = placePopup.querySelector('.popup__button');
 const gallery = document.querySelector('.gallery');
 
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+}
+
+const editFormValidator = new FormValidator(settings, editForm);
+const addFormValidator = new FormValidator(settings, addForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
 function addImage(data) {
   const card = new Card(data, '#card');
 
@@ -90,8 +105,7 @@ function profileFormSubmitHandler(event) {
 
 function placeAddHandler() {
   addForm.reset();
-  addFormButton.classList.add('popup__button_disabled');
-
+  addFormValidator.toggleButtonState(); 
   openPopup(placePopup);
 }
 
@@ -126,18 +140,3 @@ addForm.addEventListener('submit', placeFormSubmitHandler);
 
 imagePopupClose.addEventListener('click', imagePopupCloseHandler);
 imagePopupOverlay.addEventListener('click', imagePopupCloseHandler);
-
-const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-}
-
-const editFormValidator = new FormValidator(settings, editForm);
-const addFormValidator = new FormValidator(settings, addForm);
-
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
