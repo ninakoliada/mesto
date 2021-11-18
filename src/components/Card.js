@@ -1,4 +1,5 @@
 import { openPopup } from "../js/popup.js";
+import { PopupWithImage } from "./PopupWithImage.js";
 
 export class Card {
     constructor(data, selector) {
@@ -6,9 +7,7 @@ export class Card {
         this._name = data.name;
         this._templateSelector = selector;
 
-        this._imagePopup = document.body.querySelector('.page__image-popup');
-        this._imagePopupPicture = this._imagePopup.querySelector('.popup__image');
-        this._imagePopupDescription = this._imagePopup.querySelector('.popup__description');
+        this._imagePopup = new PopupWithImage('.page__image-popup');
     }
 
     _getTemplate() {
@@ -28,11 +27,7 @@ export class Card {
     }
 
     _handleCardClick() {
-        this._imagePopupPicture.src = this._link;
-        this._imagePopupPicture.alt = this._name;
-        this._imagePopupDescription.textContent = this._name;
-
-        openPopup(this._imagePopup);
+        this._imagePopup.open(this._link, this._name);
     }
 
     _setEventListeners() {

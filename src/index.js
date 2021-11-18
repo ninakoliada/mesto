@@ -1,9 +1,11 @@
 import { openPopup, closePopup } from './js/popup.js';
 import { Card } from './components/Card.js'
-import Section from './components/Section.js';
+import { Section } from './components/Section.js';
 import { FormValidator } from './components/FormValidator.js';
+import { Popup } from './components/Popup.js';
 
 import './styles/index.css';
+import { PopupWithImage } from './components/PopupWithImage.js';
 
 const initialCards = [
   {
@@ -32,16 +34,18 @@ const initialCards = [
   }
 ];
 
-const imagePopup = document.body.querySelector('.page__image-popup');
-const imagePopupClose = imagePopup.querySelector('.popup__close');
-const imagePopupOverlay = imagePopup.querySelector('.popup__background');
+const ImagePopup = new PopupWithImage('.page__image-popup');
+ImagePopup.setEventListeners();
+
+const PlacePopup = new Popup('.page__place-popup');
+PlacePopup.setEventListeners();
+
+const ProfilePopup = new Popup('.page__profile-popup');
+ProfilePopup.setEventListeners();
 
 const profilePopup = document.body.querySelector('.page__profile-popup');
 const placePopup = document.body.querySelector('.page__place-popup');
-const profilePopupClose = profilePopup.querySelector('.popup__close');
-const profilePopupOverlay = profilePopup.querySelector('.popup__background');
-const placePopupClose = placePopup.querySelector('.popup__close');
-const placePopupOverlay = placePopup.querySelector('.popup__background');
+
 const popupName = profilePopup.querySelector('.popup__input_type_name');
 const popupProfession = profilePopup.querySelector('.popup__input_type_profession');
 const popupPlaceName = placePopup.querySelector('.popup__input_type_name');
@@ -55,8 +59,6 @@ const profileProfession = document.body.querySelector('.profile__profession');
 
 const editForm = profilePopup.querySelector('.popup__form');
 const addForm = placePopup.querySelector('.popup__form');
-const addFormButton = placePopup.querySelector('.popup__button');
-const gallery = document.querySelector('.gallery');
 
 const settings = {
   formSelector: ".popup__form",
@@ -88,7 +90,7 @@ const CardSection = new Section(
 CardSection.renderer();
 
 function profilePopupCloseHandler(event) {
-  closePopup(profilePopup);
+  ProfilePopup.close();
 }
 
 function profileEditHandler() {
@@ -98,7 +100,7 @@ function profileEditHandler() {
   popupProfession.value = profileProfession.textContent;
   popupProfession.dispatchEvent(new Event('input'));
 
-  openPopup(profilePopup);
+  ProfilePopup.open();
 }
 
 function profileFormSubmitHandler(event) {
@@ -113,11 +115,11 @@ function profileFormSubmitHandler(event) {
 function placeAddHandler() {
   addForm.reset();
   addFormValidator.toggleButtonState(); 
-  openPopup(placePopup);
+  PlacePopup.open()
 }
 
 function placePopupCloseHandler(event) {
-  closePopup(placePopup);
+  PlacePopup.close();
 }
 
 function placeFormSubmitHandler(event) {
@@ -132,19 +134,8 @@ function placeFormSubmitHandler(event) {
   placePopupCloseHandler(event);
 }
 
-function imagePopupCloseHandler(event) {
-  closePopup(imagePopup);
-}
-
-profilePopupClose.addEventListener('click', profilePopupCloseHandler);
-profilePopupOverlay.addEventListener('click', profilePopupCloseHandler);
 editButton.addEventListener('click', profileEditHandler);
 editForm.addEventListener('submit', profileFormSubmitHandler);
 
 addButton.addEventListener('click', placeAddHandler)
-placePopupClose.addEventListener('click', placePopupCloseHandler);
-placePopupOverlay.addEventListener('click', placePopupCloseHandler);
 addForm.addEventListener('submit', placeFormSubmitHandler);
-
-imagePopupClose.addEventListener('click', imagePopupCloseHandler);
-imagePopupOverlay.addEventListener('click', imagePopupCloseHandler);
