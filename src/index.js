@@ -3,6 +3,7 @@ import { openPopup, closePopup } from './js/popup.js';
 import { FormValidator } from './js/FormValidator.js';
 
 import './styles/index.css';
+import Section from './js/Section.js';
 
 const initialCards = [
   {
@@ -72,15 +73,19 @@ const addFormValidator = new FormValidator(settings, addForm);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-function addImage(data) {
-  const card = new Card(data, '#card');
+const CardSection = new Section(
+  {
+    items: initialCards, 
+    renderer: (item) => {
+      const card = new Card(item, '#card');
 
-  gallery.prepend(card.getCard());
-}
+      CardSection.addItem(card.getCard());
+    }
+  },
+  '.gallery'
+);
 
-initialCards.forEach(function(item){
-  addImage(item)
-});
+CardSection.renderer();
 
 function profilePopupCloseHandler(event) {
   closePopup(profilePopup);
@@ -118,11 +123,12 @@ function placePopupCloseHandler(event) {
 function placeFormSubmitHandler(event) {
   event.preventDefault();
   
-  addImage({
+  const card = new Card({
     link: popupPlaceLink.value,
     name: popupPlaceName.value
-  })
+  }, '#card');
 
+  CardSection.addItem(card.getCard());
   placePopupCloseHandler(event);
 }
 
