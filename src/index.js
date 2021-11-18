@@ -1,6 +1,8 @@
-import { Card } from './Card.js'
-import { openPopup, closePopup } from './popup.js';
-import { FormValidator } from './FormValidator.js';
+import { Card } from './js/Card.js'
+import { openPopup, closePopup } from './js/popup.js';
+import { FormValidator } from './js/FormValidator.js';
+
+import './styles/index.css';
 
 const initialCards = [
   {
