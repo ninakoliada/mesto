@@ -2,6 +2,8 @@ export class FormValidator {
     constructor(settings, form) {
         this._form = form;
         this._settings = settings;
+        this._inputList = this._form.querySelectorAll(this._settings.inputSelector);
+        this._submitButton = this._form.querySelector(this._settings.submitButtonSelector);
     }
 
     _hasInvalidInput() {
@@ -48,9 +50,6 @@ export class FormValidator {
     }
       
     enableValidation() {
-        this._submitButton = this._form.querySelector(this._settings.submitButtonSelector);
-        this._inputList = this._form.querySelectorAll(this._settings.inputSelector);
-        
         this.toggleButtonState();
         
         this._inputList.forEach((input) => {
