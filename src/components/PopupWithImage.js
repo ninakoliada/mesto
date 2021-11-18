@@ -9,8 +9,6 @@ export class PopupWithImage extends Popup {
         popupPicture.alt = name;
         popupDescription.textContent = name;
 
-        this._popup.classList.add('popup_visibility_visible');
-
-        document.addEventListener('keydown', this._handleEscClose);
+        super.open();
     }
 }

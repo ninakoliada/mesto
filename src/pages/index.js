@@ -26,7 +26,7 @@ const ProfileInfo = new UserInfo({
   professionSelector: '.profile__profession',
 });
 
-const PlacePopup = new PopupWithForm(placePopupSelector, placeFormSubmitHandler);
+const PlacePopup = new PopupWithForm(placePopupSelector, addPlaceCard);
 const ProfilePopup = new PopupWithForm(profilePopupSelector, profileFormSubmitHandler);
 const ImagePopup = new PopupWithImage(imagePopupSelector);
 
@@ -43,11 +43,7 @@ placeFormValidator.enableValidation();
 const CardSection = new Section(
   {
     items: initialCards,
-    renderer: (item) => {
-      const card = new Card(item, '#card', () => ImagePopup.open(item));
-
-      CardSection.addItem(card.getCard());
-    },
+    renderer: addPlaceCard,
   },
   '.gallery'
 );
@@ -75,12 +71,10 @@ function openProfilePopupHandler() {
 
 function profileFormSubmitHandler(data) {
   ProfileInfo.setUserInfo(data);
-  ProfilePopup.close();
 }
 
-function placeFormSubmitHandler(data) {
-  const card = new Card(data, '#card', () => ImagePopup.open(item));
+function addPlaceCard(data) {
+  const card = new Card(data, '#card', () => ImagePopup.open(data));
 
   CardSection.addItem(card.getCard());
-  PlacePopup.close();
 }
