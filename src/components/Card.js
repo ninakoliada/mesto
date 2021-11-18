@@ -1,13 +1,9 @@
-import { openPopup } from "../js/popup.js";
-import { PopupWithImage } from "./PopupWithImage.js";
-
 export class Card {
-    constructor(data, selector) {
+    constructor(data, selector, handleCardClick) {
         this._link = data.link;
         this._name = data.name;
         this._templateSelector = selector;
-
-        this._imagePopup = new PopupWithImage('.page__image-popup');
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -24,10 +20,6 @@ export class Card {
 
     _handleDeleteClick() {
         this._element.remove();
-    }
-
-    _handleCardClick() {
-        this._imagePopup.open(this._link, this._name);
     }
 
     _setEventListeners() {

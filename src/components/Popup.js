@@ -12,13 +12,11 @@ export class Popup {
 
     open = () => {
         this._popup.classList.add('popup_visibility_visible');
-
         document.addEventListener('keydown', this._handleEscClose);
     }
 
     close = () => {
         this._popup.classList.remove('popup_visibility_visible');
-
         document.removeEventListener('keydown', this._handleEscClose);
     }
 
