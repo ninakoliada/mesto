@@ -33,23 +33,23 @@ const api = new Api({
   },
 });
 
-const ProfileInfo = new UserInfo({
+const profileInfo = new UserInfo({
   nameSelector: '.profile__name',
   aboutSelector: '.profile__about',
   avatarSelector: '.profile__avatar'
 });
 
-const PlacePopup = new PopupWithForm(placePopupSelector, addPlaceCard);
-const ProfilePopup = new PopupWithForm(profilePopupSelector, profileFormSubmitHandler);
-const AvatarPopup = new PopupWithForm(avatarPopupSelector, updateAvatar);
-const ImagePopup = new PopupWithImage(imagePopupSelector);
-const ConfirmPopup = new PopupWithConfirm(confirmPopupSelector);
+const placePopup = new PopupWithForm(placePopupSelector, addPlaceCard);
+const profilePopup = new PopupWithForm(profilePopupSelector, profileFormSubmitHandler);
+const avatarPopup = new PopupWithForm(avatarPopupSelector, updateAvatar);
+const imagePopup = new PopupWithImage(imagePopupSelector);
+const confirmPopup = new PopupWithConfirm(confirmPopupSelector);
 
-PlacePopup.setEventListeners();
-ProfilePopup.setEventListeners();
-ImagePopup.setEventListeners();
-ConfirmPopup.setEventListeners();
-AvatarPopup.setEventListeners();
+placePopup.setEventListeners();
+profilePopup.setEventListeners();
+imagePopup.setEventListeners();
+confirmPopup.setEventListeners();
+avatarPopup.setEventListeners();
 
 const profileFormValidator = new FormValidator(validationSettings, profileForm);
 const placeFormValidator = new FormValidator(validationSettings, placeForm);
@@ -59,7 +59,7 @@ profileFormValidator.enableValidation();
 placeFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
 
-const CardSection = new Section(
+const cardSection = new Section(
   {
     items: [],
     renderer: addCardToSection,
@@ -67,122 +67,116 @@ const CardSection = new Section(
   '.gallery'
 );
 
-CardSection.renderer();
+cardSection.renderer();
 
-editButton.addEventListener('click', openProfilePopupHandler);
-addButton.addEventListener('click', openPlacePopupHandler);
+editButton.addEventListener('click', openprofilePopupHandler);
+addButton.addEventListener('click', openplacePopupHandler);
 
-function openPlacePopupHandler() {
+function openplacePopupHandler() {
   placeForm.reset();
   placeFormValidator.toggleButtonState();
-  PlacePopup.open();
+  placePopup.open();
 }
 
-function openProfilePopupHandler() {
-  const { name, about } = ProfileInfo.getUserInfo();
+function openprofilePopupHandler() {
+  const { name, about } = profileInfo.getUserInfo();
 
   popupName.value = name;
   popupProfession.value = about;
 
   profileFormValidator.toggleButtonState();
-  ProfilePopup.open();
+  profilePopup.open();
 }
 
 function profileFormSubmitHandler(data) {
-  ProfilePopup.setLoading(true);
+  profilePopup.setLoading(true);
 
   api.editUserInfo(data)
     .then((res) => {
-      ProfilePopup.close();
-      ProfileInfo.setUserInfo(res)
+      profilePopup.close();
+      profileInfo.setUserInfo(res)
     })
     .catch((error) => {
       console.log(error);
     })
     .finally(() => {
-      ProfilePopup.setLoading(false);
+      profilePopup.setLoading(false);
 
     });
 }
 
 function addPlaceCard(data) {
-  PlacePopup.setLoading(true);
+  placePopup.setLoading(true);
 
   api.addCard(data)
     .then((res) => {
       addCardToSection(res)
-      PlacePopup.close();
+      placePopup.close();
     })
     .catch((error) => {
       console.log(error);
     })
     .finally(() => {
-      PlacePopup.setLoading(false);
+      placePopup.setLoading(false);
     })
 }
 
 function addCardToSection(data) {
   const card = new Card({
     data,
-    userId: ProfileInfo.id, 
+    userId: profileInfo.id, 
     selector: '#card', 
-    handleCardClick: () => ImagePopup.open(data),
-    handleAddLike: api.addLike,
-    handleDeleteLike: api.deleteLike,
-    handleDeleteCard: (element) => {
-      ConfirmPopup.open(() => {
-        ConfirmPopup.setLoading(true);
+    handleCardClick: () => imagePopup.open(data),
+    handleAddLike: () => {
+      api.addLike(data._id).then(card.updateLikes).catch(err => console.log(err));
+    },
+    handleDeleteLike: () => {
+      api.deleteLike(data._id).then(card.updateLikes).catch(err => console.log(err));
+    },
+    handleDeleteCard: () => {
+      confirmPopup.open(() => {
+        confirmPopup.setLoading(true);
         
         api.deleteCard(data._id)
           .then(() => {
-            ConfirmPopup.close();
-            element.remove();
+            confirmPopup.close();
+            card.removeCard();
           })
           .catch((err) => {
             console.log(err)
           })
           .finally(() => {
-            ConfirmPopup.setLoading(false);
+            confirmPopup.setLoading(false);
           })
       })
     }
   });
 
-  CardSection.addItem(card.getCard());
+  cardSection.addItem(card.getCard());
 }
 
 function updateAvatar(data) {
-  AvatarPopup.setLoading(true);
+  avatarPopup.setLoading(true);
   api.updateAvatar(data.link)
     .then((res) => {
-      ProfileInfo.setUserInfo(res);
+      profileInfo.setUserInfo(res);
       avatarForm.reset();
-      AvatarPopup.close();
+      avatarPopup.close();
     })
     .finally(() => {
-      AvatarPopup.setLoading(false);
+      avatarPopup.setLoading(false);
     });
 }
 
-document.querySelector('.profile__avatar-container').addEventListener('click', () => AvatarPopup.open())
+document.querySelector('.profile__avatar-container').addEventListener('click', () => avatarPopup.open())
 
 // ###########################################
 
-api.getUserInfo()
-  .then((data) => {
-    ProfileInfo.setUserInfo(data)
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+    profileInfo.setUserInfo(userData);
+    cardsData.forEach(addCardToSection);
   })
   .catch((error) => {
     console.log(error);
   });
-
-api.getInitialCards()
-  .then((data) => {
-    CardSection.clear();
-
-    data.forEach(addCardToSection);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-

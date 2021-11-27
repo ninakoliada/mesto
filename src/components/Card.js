@@ -29,13 +29,13 @@ export class Card {
         const hasLike = this._likes.some(({ _id }) => _id === this._userId);
 
         if (hasLike) {
-            this._handleDeleteLike(this._id).then(this._updateLikes).catch((err) => console.log(err));
+            this._handleDeleteLike(this._id);
         } else {
-            this._handleAddLike(this._id).then(this._updateLikes).catch((err) => console.log(err));
+            this._handleAddLike(this._id);
         }
     }
 
-    _updateLikes = ({ likes }) => {
+    updateLikes = ({ likes }) => {
         this._likeButton.classList.toggle('card__heart-button_active');
 
         this._likes = likes;
@@ -43,7 +43,7 @@ export class Card {
     }
 
     _handleDeleteClick = () => {
-        this._handleDeleteCard(this._element);
+        this._handleDeleteCard();
     }
 
     _setEventListeners() {
@@ -82,5 +82,10 @@ export class Card {
         this._setEventListeners();
 
         return this._element;
+    }
+
+    removeCard() {
+        this._element.remove();
+        this._element = null;
     }
 }
