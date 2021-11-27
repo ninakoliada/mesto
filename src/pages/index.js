@@ -9,6 +9,7 @@ import { Api } from '../components/Api.js';
 import {
   addButton,
   placeForm,
+  avatarForm,
   editButton,
   profileForm,
   popupName,
@@ -18,6 +19,7 @@ import {
   placePopupSelector,
   imagePopupSelector,
   confirmPopupSelector,
+  avatarPopupSelector,
 } from '../utils/constants.js';
 
 import './index.css';
@@ -39,15 +41,19 @@ const ProfileInfo = new UserInfo({
 
 const PlacePopup = new PopupWithForm(placePopupSelector, addPlaceCard);
 const ProfilePopup = new PopupWithForm(profilePopupSelector, profileFormSubmitHandler);
+const AvatarPopup = new PopupWithForm(avatarPopupSelector, updateAvatar);
 const ImagePopup = new PopupWithImage(imagePopupSelector);
 const ConfirmPopup = new PopupWithConfirm(confirmPopupSelector);
 
 PlacePopup.setEventListeners();
 ProfilePopup.setEventListeners();
 ImagePopup.setEventListeners();
+ConfirmPopup.setEventListeners();
+AvatarPopup.setEventListeners();
 
 const profileFormValidator = new FormValidator(validationSettings, profileForm);
 const placeFormValidator = new FormValidator(validationSettings, placeForm);
+const avatarFormValidator = new FormValidator(validationSettings, avatarForm);
 
 profileFormValidator.enableValidation();
 placeFormValidator.enableValidation();
@@ -119,6 +125,14 @@ function addCardToSection(data) {
   CardSection.addItem(card.getCard());
 }
 
+function updateAvatar(data) {
+  api.updateAvatar(data.link).then((res) => {
+    ProfileInfo.setUserInfo(res);
+    avatarForm.reset();
+  });
+}
+
+document.querySelector('.profile__avatar-container').addEventListener('click', () => AvatarPopup.open())
 
 // ###########################################
 
