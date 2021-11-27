@@ -95,7 +95,14 @@ function addPlaceCard(data) {
 }
 
 function addCardToSection(data) {
-  const card = new Card(data, '#card', () => ImagePopup.open(data));
+  const card = new Card({
+    data,
+    userId: ProfileInfo.id, 
+    selector: '#card', 
+    handleCardClick: () => ImagePopup.open(data),
+    handleAddLike: api.addLike,
+    handleDeleteLike: api.deleteLike,
+  });
 
   CardSection.addItem(card.getCard());
 }

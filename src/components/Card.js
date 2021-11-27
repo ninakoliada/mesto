@@ -1,10 +1,18 @@
 export class Card {
-    constructor(data, selector, handleCardClick) {
+    constructor({ data, userId, selector, handleCardClick, handleAddLike, handleDeleteLike }) {
         this._link = data.link;
         this._name = data.name;
         this._likes = data.likes;
+        this._id = data._id;
+        this._userId = userId;
         this._templateSelector = selector;
         this._handleCardClick = handleCardClick;
+        this._handleAddLike = handleAddLike;
+        this._handleDeleteLike = handleDeleteLike;
+
+        this._element = this._getTemplate();
+        this._likeButton = this._element.querySelector('.card__heart-button');
+        this._likesCount = this._element.querySelector('.card__likes-count')
     }
 
     _getTemplate() {
@@ -16,7 +24,20 @@ export class Card {
     }
 
     _handleLikeClick() {
+        const hasLike = this._likes.some(({ _id }) => _id === this._userId);
+
+        if (hasLike) {
+            this._handleDeleteLike(this._id).then(this._updateLikes).catch((err) => console.log(err));
+        } else {
+            this._handleAddLike(this._id).then(this._updateLikes).catch((err) => console.log(err));
+        }
+    }
+
+    _updateLikes = ({ likes }) => {
         this._likeButton.classList.toggle('card__heart-button_active');
+
+        this._likes = likes;
+        this._likesCount.textContent = likes.length;
     }
 
     _handleDeleteClick() {
@@ -24,8 +45,6 @@ export class Card {
     }
 
     _setEventListeners() {
-        this._likeButton = this._element.querySelector('.card__heart-button');
-    
         this._likeButton.addEventListener('click', () => {
             this._handleLikeClick();
         });
@@ -40,14 +59,17 @@ export class Card {
     }
 
     getCard() {
-        this._element = this._getTemplate();
-
         this._cardImage =  this._element.querySelector('.card__image');
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
 
-        this._element.querySelector('.card__likes-count').textContent = this._likes.length;
-        
+        const hasLike = this._likes.some(({ _id }) => _id === this._userId);
+
+        if (hasLike) {
+            this._likeButton.classList.add('card__heart-button_active');
+        }
+
+        this._likesCount.textContent = this._likes.length;
         
         this._element.querySelector('.card__text').textContent = this._name;
 
