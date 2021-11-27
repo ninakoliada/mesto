@@ -40,13 +40,18 @@ export const profilePopup = document.body.querySelector(profilePopupSelector);
 export const placePopupSelector = '.page__place-popup';
 export const placePopup = document.body.querySelector(placePopupSelector);
 
+export const avatarPopupSelector = '.page__avatar-popup';
+export const avatarPopup = document.body.querySelector(avatarPopupSelector);
+
 export const popupName = profilePopup.querySelector('.popup__input_type_name');
-export const popupProfession = profilePopup.querySelector('.popup__input_type_profession');
+export const popupProfession = profilePopup.querySelector('.popup__input_type_about');
 
 export const editButton = document.body.querySelector('.profile__edit-button');
 export const addButton = document.body.querySelector('.profile__add-button');
 
 export const profileForm = profilePopup.querySelector(".popup__form");
 export const placeForm = placePopup.querySelector(".popup__form");
+export const avatarForm = avatarPopup.querySelector(".popup__form");
 
 export const imagePopupSelector = '.page__image-popup';
+export const confirmPopupSelector = '.page__confirm-popup';
