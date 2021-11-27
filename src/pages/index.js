@@ -22,9 +22,17 @@ import {
 
 import './index.css';
 
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",
+  headers: {
+    authorization: "4efaaa97-5e92-49c0-9da5-0bde0e3791b7",
+    "Content-Type": "application/json",
+  },
+});
+
 const ProfileInfo = new UserInfo({
   nameSelector: '.profile__name',
-  aboutSelector: '.profile__profession',
+  aboutSelector: '.profile__about',
   avatarSelector: '.profile__avatar'
 });
 
@@ -72,7 +80,12 @@ function openProfilePopupHandler() {
 }
 
 function profileFormSubmitHandler(data) {
-  ProfileInfo.setUserInfo(data);
+  api.editUserInfo(data).then((response) => {
+    ProfileInfo.setUserInfo(response);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 }
 
 function addPlaceCard(data) {
@@ -83,14 +96,6 @@ function addPlaceCard(data) {
 
 
 // ###########################################
-
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",
-  headers: {
-    authorization: "4efaaa97-5e92-49c0-9da5-0bde0e3791b7",
-    "Content-Type": "application/json",
-  },
-});
 
 api.getUserInfo()
   .then((data) => {

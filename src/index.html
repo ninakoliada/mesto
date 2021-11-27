@@ -20,7 +20,7 @@
                         <img src="<%=require('./images/edit_button.svg')%>" alt="Кнопка редактировать профиль">
                     </button>
                 </div>
-                <p class="profile__profession">Исследователь океана</p>
+                <p class="profile__about">Исследователь океана</p>
             </div>
             <button type="button" class="button button_size_l profile__add-button">
                 <img class="profile__add-image" src="<%=require('./images/add_button.svg')%>" alt="Кнопка добавить">
@@ -41,8 +41,8 @@
                     <span class="popup__error user-name-error"></span>
                 </label>
                 <label class="popup__form-field">
-                    <input id="user-profession" name="profession" class="popup__input popup__input_type_profession" type="text" placeholder="Род занятий" required minlength="2" maxlength="200">
-                    <span class="popup__error user-profession-error"></span>
+                    <input id="user-about" name="about" class="popup__input popup__input_type_about" type="text" placeholder="Род занятий" required minlength="2" maxlength="200">
+                    <span class="popup__error user-about-error"></span>
                 </label>
                 <button type="submit" class="button button_size_l popup__button">Сохранить</button>
             </form>

@@ -1,7 +1,7 @@
 export class Api {
   constructor({baseUrl, headers}) {
-   this.baseUrl = baseUrl;
-   this.headers = headers;
+   this._baseUrl = baseUrl;
+   this._headers = headers;
   }
 
   _parseResponse(res) {
@@ -13,14 +13,25 @@ export class Api {
   }
 
   getUserInfo() {
-    return fetch(this.baseUrl + '/users/me', {
-        headers: this.headers,
+    return fetch(this._baseUrl + '/users/me', {
+      headers: this._headers,
+    }).then(this._parseResponse);
+  }
+
+  editUserInfo({ name, about }) {
+    return fetch(this._baseUrl + '/users/me', {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name,
+        about
+      })
     }).then(this._parseResponse);
   }
 
   getInitialCards() {
-    return fetch(this.baseUrl + '/cards', {
-      headers: this.headers,
+    return fetch(this._baseUrl + '/cards', {
+      headers: this._headers,
     }).then(this._parseResponse)
   }
 

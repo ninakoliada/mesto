@@ -41,7 +41,7 @@ export const placePopupSelector = '.page__place-popup';
 export const placePopup = document.body.querySelector(placePopupSelector);
 
 export const popupName = profilePopup.querySelector('.popup__input_type_name');
-export const popupProfession = profilePopup.querySelector('.popup__input_type_profession');
+export const popupProfession = profilePopup.querySelector('.popup__input_type_about');
 
 export const editButton = document.body.querySelector('.profile__edit-button');
 export const addButton = document.body.querySelector('.profile__add-button');
