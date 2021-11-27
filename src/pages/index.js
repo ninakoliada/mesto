@@ -53,7 +53,7 @@ placeFormValidator.enableValidation();
 const CardSection = new Section(
   {
     items: initialCards,
-    renderer: addPlaceCard,
+    renderer: addCardToSection,
   },
   '.gallery'
 );
@@ -80,15 +80,22 @@ function openProfilePopupHandler() {
 }
 
 function profileFormSubmitHandler(data) {
-  api.editUserInfo(data).then((response) => {
-    ProfileInfo.setUserInfo(response);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  api.editUserInfo(data)
+    .then(ProfileInfo.setUserInfo)
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 function addPlaceCard(data) {
+  api.addCard(data)
+    .then(addCardToSection)
+    .catch((error) => {
+      console.log(error);
+    })
+}
+
+function addCardToSection(data) {
   const card = new Card(data, '#card', () => ImagePopup.open(data));
 
   CardSection.addItem(card.getCard());
@@ -109,7 +116,7 @@ api.getInitialCards()
   .then((data) => {
     CardSection.clear();
 
-    data.forEach(addPlaceCard);
+    data.forEach(addCardToSection);
   })
   .catch((error) => {
     console.log(error);
