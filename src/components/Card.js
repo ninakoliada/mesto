@@ -1,5 +1,5 @@
 export class Card {
-    constructor({ data, userId, selector, handleCardClick, handleAddLike, handleDeleteLike }) {
+    constructor({ data, userId, selector, handleCardClick, handleAddLike, handleDeleteLike, handleDeleteCard }) {
         this._link = data.link;
         this._name = data.name;
         this._likes = data.likes;
@@ -10,6 +10,7 @@ export class Card {
         this._handleCardClick = handleCardClick;
         this._handleAddLike = handleAddLike;
         this._handleDeleteLike = handleDeleteLike;
+        this._handleDeleteCard = handleDeleteCard;
 
         this._element = this._getTemplate();
         this._likeButton = this._element.querySelector('.card__heart-button');
@@ -42,7 +43,13 @@ export class Card {
     }
 
     _handleDeleteClick() {
-        this._element.remove();
+        this._handleDeleteCard(this._id)
+            .then(() => {
+                this._element.remove();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     _setEventListeners() {

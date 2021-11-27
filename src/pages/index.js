@@ -102,6 +102,7 @@ function addCardToSection(data) {
     handleCardClick: () => ImagePopup.open(data),
     handleAddLike: api.addLike,
     handleDeleteLike: api.deleteLike,
+    handleDeleteCard: api.deleteCard,
   });
 
   CardSection.addItem(card.getCard());
