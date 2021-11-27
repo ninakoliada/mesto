@@ -57,6 +57,7 @@ const avatarFormValidator = new FormValidator(validationSettings, avatarForm);
 
 profileFormValidator.enableValidation();
 placeFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
 
 const CardSection = new Section(
   {
@@ -88,18 +89,35 @@ function openProfilePopupHandler() {
 }
 
 function profileFormSubmitHandler(data) {
+  ProfilePopup.setLoading(true);
+
   api.editUserInfo(data)
-    .then(ProfileInfo.setUserInfo)
+    .then((res) => {
+      ProfilePopup.close();
+      ProfileInfo.setUserInfo(res)
+    })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      ProfilePopup.setLoading(false);
+
     });
 }
 
 function addPlaceCard(data) {
+  PlacePopup.setLoading(true);
+
   api.addCard(data)
-    .then(addCardToSection)
+    .then((res) => {
+      addCardToSection(res)
+      PlacePopup.close();
+    })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      PlacePopup.setLoading(false);
     })
 }
 
@@ -113,10 +131,18 @@ function addCardToSection(data) {
     handleDeleteLike: api.deleteLike,
     handleDeleteCard: (element) => {
       ConfirmPopup.open(() => {
+        ConfirmPopup.setLoading(true);
+        
         api.deleteCard(data._id)
-          .then(element.remove())
+          .then(() => {
+            ConfirmPopup.close();
+            element.remove();
+          })
           .catch((err) => {
             console.log(err)
+          })
+          .finally(() => {
+            ConfirmPopup.setLoading(false);
           })
       })
     }
@@ -126,10 +152,16 @@ function addCardToSection(data) {
 }
 
 function updateAvatar(data) {
-  api.updateAvatar(data.link).then((res) => {
-    ProfileInfo.setUserInfo(res);
-    avatarForm.reset();
-  });
+  AvatarPopup.setLoading(true);
+  api.updateAvatar(data.link)
+    .then((res) => {
+      ProfileInfo.setUserInfo(res);
+      avatarForm.reset();
+      AvatarPopup.close();
+    })
+    .finally(() => {
+      AvatarPopup.setLoading(false);
+    });
 }
 
 document.querySelector('.profile__avatar-container').addEventListener('click', () => AvatarPopup.open())

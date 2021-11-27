@@ -3,13 +3,14 @@ import { Popup } from "./Popup";
 export class PopupWithConfirm extends Popup {
     constructor(popupSelector) {
         super(popupSelector);
+        
+        this._popupButton = this._popup.querySelector('.popup__button');
+        this._popupButtonText = this._popupButton.textContent;
     }
 
     _confirmHandler = (event) => {
         event.preventDefault();
         this._confirmCallback();
-
-        this.close()
     }
 
     setEventListeners() {
@@ -32,5 +33,9 @@ export class PopupWithConfirm extends Popup {
         super.close();
 
         this.removeEventListeners()
+    }
+    
+    setLoading(value) {
+        this._popupButton.textContent = value ? 'Сохранение...' : this._popupButtonText;
     }
 }
