@@ -50,3 +50,4 @@ export const profileForm = profilePopup.querySelector(".popup__form");
 export const placeForm = placePopup.querySelector(".popup__form");
 
 export const imagePopupSelector = '.page__image-popup';
+export const confirmPopupSelector = '.page__confirm-popup';

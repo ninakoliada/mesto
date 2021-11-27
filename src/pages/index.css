@@ -53,4 +53,5 @@
 @import url('../blocks/popup/__content/popup__content.css');
 @import url('../blocks/popup/__image/popup__image.css');
 @import url('../blocks/popup/__description/popup__description.css');
-
+@import url('../blocks/popup/__confirm/popup__confirm.css');
+@import url('../blocks/popup/__confirm-text/popup__confirm-text.css');

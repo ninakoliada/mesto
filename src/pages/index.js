@@ -17,9 +17,11 @@ import {
   profilePopupSelector,
   placePopupSelector,
   imagePopupSelector,
+  confirmPopupSelector,
 } from '../utils/constants.js';
 
 import './index.css';
+import { PopupWithConfirm } from '../components/PopupWithConfirm.js';
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",
@@ -38,6 +40,7 @@ const ProfileInfo = new UserInfo({
 const PlacePopup = new PopupWithForm(placePopupSelector, addPlaceCard);
 const ProfilePopup = new PopupWithForm(profilePopupSelector, profileFormSubmitHandler);
 const ImagePopup = new PopupWithImage(imagePopupSelector);
+const ConfirmPopup = new PopupWithConfirm(confirmPopupSelector);
 
 PlacePopup.setEventListeners();
 ProfilePopup.setEventListeners();
@@ -102,7 +105,15 @@ function addCardToSection(data) {
     handleCardClick: () => ImagePopup.open(data),
     handleAddLike: api.addLike,
     handleDeleteLike: api.deleteLike,
-    handleDeleteCard: api.deleteCard,
+    handleDeleteCard: (element) => {
+      ConfirmPopup.open(() => {
+        api.deleteCard(data._id)
+          .then(element.remove())
+          .catch((err) => {
+            console.log(err)
+          })
+      })
+    }
   });
 
   CardSection.addItem(card.getCard());

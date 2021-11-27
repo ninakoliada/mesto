@@ -42,14 +42,8 @@ export class Card {
         this._likesCount.textContent = likes.length;
     }
 
-    _handleDeleteClick() {
-        this._handleDeleteCard(this._id)
-            .then(() => {
-                this._element.remove();
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+    _handleDeleteClick = () => {
+        this._handleDeleteCard(this._element);
     }
 
     _setEventListeners() {
