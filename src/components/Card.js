@@ -2,6 +2,7 @@ export class Card {
     constructor(data, selector, handleCardClick) {
         this._link = data.link;
         this._name = data.name;
+        this._likes = data.likes;
         this._templateSelector = selector;
         this._handleCardClick = handleCardClick;
     }
@@ -44,6 +45,9 @@ export class Card {
         this._cardImage =  this._element.querySelector('.card__image');
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
+
+        this._element.querySelector('.card__likes-count').textContent = this._likes.length;
+        
         
         this._element.querySelector('.card__text').textContent = this._name;
 

@@ -11,7 +11,6 @@ import {
   placeForm,
   editButton,
   profileForm,
-  initialCards,
   popupName,
   popupProfession,
   validationSettings,
@@ -52,7 +51,7 @@ placeFormValidator.enableValidation();
 
 const CardSection = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: addCardToSection,
   },
   '.gallery'
