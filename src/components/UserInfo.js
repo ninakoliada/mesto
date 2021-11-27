@@ -13,10 +13,20 @@ export class UserInfo {
     }
 
     setUserInfo = ({ name, about, avatar, _id }) => {
-        this._name.textContent = name;
-        this._about.textContent = about;
-        this._avatar.src = avatar;
+        if (name) {
+            this._name.textContent = name;
+        }
+
+        if (about) {
+            this._about.textContent = about;
+        }
+
+        if (avatar) {
+            this._avatar.src = avatar;
+        }
         
-        this.id = _id;
+        if (_id) {
+            this.id = _id;
+        }
     }
 }
