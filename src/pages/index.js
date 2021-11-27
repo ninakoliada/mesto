@@ -84,7 +84,6 @@ function addPlaceCard(data) {
 
 // ###########################################
 
-
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",
   headers: {
@@ -93,7 +92,21 @@ const api = new Api({
   },
 });
 
-api.getUserInfo().then((data) => {
-  ProfileInfo.setUserInfo(data)
-});
+api.getUserInfo()
+  .then((data) => {
+    ProfileInfo.setUserInfo(data)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+api.getInitialCards()
+  .then((data) => {
+    CardSection.clear();
+
+    data.forEach(addPlaceCard);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
