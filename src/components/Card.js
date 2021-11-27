@@ -5,6 +5,7 @@ export class Card {
         this._likes = data.likes;
         this._id = data._id;
         this._userId = userId;
+        this._isOwn = data.owner._id == userId;
         this._templateSelector = selector;
         this._handleCardClick = handleCardClick;
         this._handleAddLike = handleAddLike;
@@ -67,6 +68,10 @@ export class Card {
 
         if (hasLike) {
             this._likeButton.classList.add('card__heart-button_active');
+        }
+
+        if (this._isOwn) {
+            this._element.querySelector('.card__delete-button').classList.add('card__delete-button_visible')
         }
 
         this._likesCount.textContent = this._likes.length;
