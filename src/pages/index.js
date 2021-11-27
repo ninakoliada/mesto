@@ -4,6 +4,7 @@ import { FormValidator } from '../components/FormValidator.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
+import { Api } from '../components/Api.js';
 
 import {
   addButton,
@@ -23,7 +24,8 @@ import './index.css';
 
 const ProfileInfo = new UserInfo({
   nameSelector: '.profile__name',
-  professionSelector: '.profile__profession',
+  aboutSelector: '.profile__profession',
+  avatarSelector: '.profile__avatar'
 });
 
 const PlacePopup = new PopupWithForm(placePopupSelector, addPlaceCard);
@@ -60,10 +62,10 @@ function openPlacePopupHandler() {
 }
 
 function openProfilePopupHandler() {
-  const { name, profession } = ProfileInfo.getUserInfo();
+  const { name, about } = ProfileInfo.getUserInfo();
 
   popupName.value = name;
-  popupProfession.value = profession;
+  popupProfession.value = about;
 
   profileFormValidator.toggleButtonState();
   ProfilePopup.open();
@@ -78,3 +80,20 @@ function addPlaceCard(data) {
 
   CardSection.addItem(card.getCard());
 }
+
+
+// ###########################################
+
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",
+  headers: {
+    authorization: "4efaaa97-5e92-49c0-9da5-0bde0e3791b7",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getUserInfo().then((data) => {
+  ProfileInfo.setUserInfo(data)
+});
+
